@@ -9,7 +9,7 @@ module.exports.getAllProducts = (req,res) =>{
 module.exports.createProduct = (req,res) =>{
     Product.create(req.body)
         .then(newProd => res.json(newProd))
-        .catch(err => res.json(err))
+        .catch(err => res.status(400).json(err))
 }
 
 module.exports.getOneProduct = (req, res) =>{
@@ -21,7 +21,18 @@ module.exports.getOneProduct = (req, res) =>{
 
 module.exports.updateProduct = (req,res) =>{
     const {id} = req.params;
-    Product.findByIdAndUpdate({_id:id}, req.body, {new:true})
+    Product.findByIdAndUpdate(
+            {_id:id}, //1. SEARCH QUERY
+            req.body, //2. THE BODY TO BE UPDATED
+            {new:true, runValidators:true} //3. SETTINGS
+    )
         .then(updatedProd => res.json(updatedProd))
-        .catch(err => res.json(err))
+        .catch(err =>  res.status(400).json(err))
+}
+
+module.exports.deleteProduct = (req,res) =>{
+    const {id} = req.params;
+    Product.deleteOne({_id:id})
+        .then(deleteRes => res.json(deleteRes))
+        .catch(err => res.jsom(err))
 }

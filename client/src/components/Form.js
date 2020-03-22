@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Form = ({changeForm, handleSubmit, formState}) =>{
+const Form = ({changeForm, handleSubmit, formState, errors}) =>{
     return(
         <div>
             <h1>Product Manager</h1>
@@ -20,6 +20,7 @@ const Form = ({changeForm, handleSubmit, formState}) =>{
                 </p>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
+            {errors.map((err, i) => <p key={i}>{err}</p>)}
         </div>
         </div>
     )

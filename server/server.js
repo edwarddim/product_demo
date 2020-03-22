@@ -6,7 +6,7 @@ const cors = require("cors")
 const app = express()
 
 // 3. START OUR DATABASE
-require("./server/config/mongoose.config")
+require("./config/mongoose.config")
 
 // 4. CONFIGURE EXPRESS SERVER FOR POST REQUESTS AND CORS REQUESTS
 app.use(cors())
@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 // 5. CONNECT OUR EXPRESS INSTANCE TO ROUTES
-require("./server/routes/product.routes")(app)
+require("./routes/product.routes")(app)
 
 
 

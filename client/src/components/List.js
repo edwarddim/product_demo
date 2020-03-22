@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from '@reach/router'
 
-const List = ({listState}) =>{
+const List = ({listState, deleteHandler}) =>{
     return(
         <div>
             {listState.map((item, i) => (
@@ -15,6 +15,9 @@ const List = ({listState}) =>{
                         <Link to={"/" + item._id + "/edit"}>
                             Update: {item.title}
                         </Link>
+                    </p>
+                    <p>
+                        <button onClick={()=> deleteHandler(item._id)}>Delete</button>
                     </p>
                     <hr></hr>
                 </div>

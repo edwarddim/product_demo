@@ -8,6 +8,7 @@ const UpdateComponent = ({id}) =>{
     const [detailState, setDetailState] = useState({
 
     })
+    const [errors, setErrors] = useState([])
 
     useEffect(()=>{
         axios.get('http://localhost:8000/api/product/'+id)
@@ -31,10 +32,15 @@ const UpdateComponent = ({id}) =>{
                 console.log("NEW OBJECT CAME BACK: ",res)
                 navigate("/" + res.data._id)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                const {errors} = err.response.data;
+                const errorArr = []
+                for(const key of Object.keys(errors)){
+                    errorArr.push(errors[key].message)
+                }
+                setErrors(errorArr)
+            })
     }
-
-
 
     return(
         <div>
@@ -56,6 +62,7 @@ const UpdateComponent = ({id}) =>{
                     </p>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
+                {errors.map((err, i) => <p key={i}>{err}</p>)}
             </div>
         </div>
     )

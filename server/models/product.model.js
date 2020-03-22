@@ -8,7 +8,7 @@ const ProductSchema = new mongoose.Schema({
     },
     price:{
         type:Number,
-        required:[true, "Must have a number"]
+        min:[1,"Price must be more than 0"]
     },
     description:{
         type:String,
